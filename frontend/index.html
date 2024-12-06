@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anotamentos</title>
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body>
+    <h1>
+      <i class="bi bi-journal-bookmark-fill"></i> Anotamentos
+      <span id="pro">PRO</span>
+    </h1>
+
+    <form id="formulario">
+      <input
+        id="titulo"
+        class="border"
+        type="text"
+        placeholder="Digite o título da anotação..."
+        required
+      />
+
+      <select name="tipo" id="tipo" class="border">
+        <option disabled selected>Tipo</option>
+        <option value="anotacao">Anotação</option>
+        <option value="tarefa">Tarefa</option>
+        <option value="ideia">Ideia</option>
+      </select>
+
+      <select name="prioridade" id="prioridade" class="border">
+        <option id="cabecalho" disabled selected>Prioridade</option>
+        <option id="prioridade-alta" value="alta">Alta</option>
+        <option id="prioridade-media" value="media">Média</option>
+        <option id="prioridade-baixa" value="baixa">Baixa</option>
+      </select>
+
+      <textarea
+        id="nota"
+        class="border"
+        name="nota"
+        placeholder="Escreva sua anotação ou tarefa aqui..."
+        rows="6"
+        required
+      ></textarea>
+
+      <button type="submit"><i class="bi bi-sticky-fill"></i> Registrar</button>
+    </form>
+
+    <div class="filtro">
+      <select name="tipo" id="filtro-tipo" class="border" required>
+        <option disabled selected>Tipo</option>
+        <option value="anotacao">Anotação</option>
+        <option value="tarefa">Tarefa</option>
+        <option value="ideia">Ideia</option>
+      </select>
+
+      <select name="prioridade" id="filtro-prioridade" class="border" required>
+        <option id="cabecalho" disabled selected>Prioridade</option>
+        <option id="prioridade-alta" value="alta">Alta</option>
+        <option id="prioridade-media" value="media">Média</option>
+        <option id="prioridade-baixa" value="baixa">Baixa</option>
+      </select>
+
+      <div id="filtro-pesquisa">
+        <input type="search" class="border" id="pesquisa" />
+        <button id="bt-pesquisa"><i class="bi bi-search"></i></button>
+      </div>
+    </div>
+
+    <section class="lista">
+      <div class="cartao">
+        <button class="opcoes-cartao">
+          <i class="bi bi-three-dots-vertical"></i>
+        </button>
+        <div class="cor-verde"></div>
+
+        <h2>Titulo da anotação</h2>
+
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+          Necessitatibus, ullam! A soluta modi eius ea distinctio libero
+          corporis illo, magnam nesciunt dolorum hic consequuntur quo omnis sit,
+          exercitationem id quasi, voluptatum labore. Repellendus minima
+          commodi, dicta.
+        </p>
+
+        <div class="cartao-rodape">
+          <p class="data"><i class="bi bi-calendar-fill"></i> 05/12/2024</p>
+          <p class="etiqueta-tipo">Anotação</p>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="index.js"></script>
+  </body>
+</html>

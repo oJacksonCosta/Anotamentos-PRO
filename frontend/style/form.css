@@ -1,0 +1,98 @@
+@import url("global.css");
+
+h1 {
+  font-size: 36px;
+  margin: 2rem 0;
+  color: var(--primary-blue);
+}
+
+h1 > #pro {
+  font-weight: 800;
+  color: gold;
+  border: 1px solid gold;
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+}
+
+form {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  gap: 0.5rem;
+}
+
+input {
+  color: var(primary-gray);
+  height: 2rem;
+  padding-inline: 0.8rem;
+  border: 1px solid var(--primary-blue);
+  border-radius: 6px;
+  outline: none;
+}
+
+input:focus {
+  outline: 2px solid var(--primary-blue);
+}
+
+select {
+  color: var(--primary-blue);
+  height: 2rem;
+  padding-inline: 0.5rem;
+  border: 1px solid var(--primary-blue);
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+}
+
+select:focus {
+  outline: 2px solid var(--primary-blue);
+}
+
+select > #righ-priority {
+  background-color: #cc0000;
+  color: #ffffff;
+}
+
+select > #medium-priority {
+  background-color: #ff9100;
+  color: #ffffff;
+}
+
+select > #low-priority {
+  background-color: #9bd400;
+  color: #ffffff;
+}
+
+textarea {
+  color: var(--primary-gray);
+  padding: 0.8rem;
+  border: 1px solid var(--primary-blue);
+  border-radius: 6px;
+  outline: none;
+
+  grid-column: 1 / 4;
+
+  resize: none;
+}
+
+textarea:focus {
+  outline: 2px solid var(--primary-blue);
+}
+
+form > button {
+  height: 2rem;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  font-weight: 600;
+
+  grid-column: 1 / 4;
+}
+
+form > button:hover {
+  cursor: pointer;
+  background-color: var(--secondary-blue);
+  transition: 0.3s;
+}

@@ -1,0 +1,49 @@
+@import url("global.css");
+
+.filter {
+  width: 100%;
+  padding-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 2fr;
+  gap: 0.5rem;
+
+  margin: 1.5rem 0;
+}
+
+#filter-type {
+  grid-column: 1 / 2;
+}
+
+#filter-priority {
+  grid-column: 2 / 3;
+}
+
+#filter-search {
+  grid-column: 3 / 5;
+  position: relative;
+}
+
+#search {
+  width: 100%;
+  height: 100%;
+  padding-right: 2rem;
+}
+
+#btn-search {
+  position: absolute;
+  right: 0.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.3rem;
+}
+
+#btn-search:hover {
+  cursor: pointer;
+  background-color: var(--secondary-blue);
+  transition: 0.3s;
+}

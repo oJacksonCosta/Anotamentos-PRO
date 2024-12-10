@@ -1,0 +1,101 @@
+@import url("global.css");
+
+.list {
+  width: 100%;
+  padding: 0.3rem 1rem 1rem 0.5rem;
+
+  overflow-y: scroll;
+}
+
+/*----------------------------------------*/
+
+.green {
+  width: 0.7rem;
+  height: 100%;
+  background-color: #9bd400;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 6px 0 0 6px;
+}
+
+.orange {
+  width: 0.7rem;
+  height: 100%;
+  background-color: #ff9100;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 6px 0 0 6px;
+}
+
+.red {
+  width: 0.7rem;
+  height: 100%;
+  background-color: #cc0000;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 6px 0 0 6px;
+}
+
+/*----------------------------------------*/
+
+.card {
+  width: 100%;
+  height: auto;
+  padding: 1.5rem 2rem 1.5rem 2.5rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+
+  box-shadow: 0 5px 10px var(--secondary-gray);
+  position: relative;
+}
+
+.card:hover {
+  cursor: pointer;
+  background-color: #f7f7f7;
+  transition: 0.4s;
+}
+
+.card-options {
+  background-color: transparent;
+  color: var(--secondary-gray);
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+
+  position: absolute;
+  right: 1rem;
+}
+
+.card > h2 {
+  color: var(--primary-gray);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card > p {
+  color: var(--primary-gray);
+  font-size: 0.85rem;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.date {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--secondary-gray);
+}
+
+.label-type {
+  font-size: 0.8rem;
+  color: var(--secondary-gray);
+  border: 1px solid var(--secondary-gray);
+  border-radius: 6px;
+  padding: 0.3rem 0.5rem;
+}

@@ -1,4 +1,3 @@
-const login = document.getElementById("login");
 const password = document.getElementById("password");
 const alterIcon = document.getElementById("alter-icon");
 const icon = document.querySelector("#alter-icon > i");

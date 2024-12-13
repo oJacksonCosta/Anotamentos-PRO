@@ -1,52 +1,59 @@
 body {
   width: 100vw;
   height: 100vh;
-  padding: 1rem;
-  background-color: #ffffff;
+  padding: 3rem 10rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
-
-  overflow: hidden;
-}
-
-body > button {
-  background-color: transparent;
-  font-size: 24px;
-  color: var(--primary-blue);
-  outline: none;
-  border: none;
-  cursor: pointer;
-
-  position: absolute;
-  right: 2rem;
-  top: 2rem;
-}
-
-.container {
-  width: 90%;
-  height: 90%;
-  padding: 2rem;
-
-  display: flex;
-  gap: 5rem;
+  gap: 1rem;
 }
 
 .left-container {
   flex: 1;
-  height: 100%;
-
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
 .right-container {
-  flex: 2;
-  height: 100%;
-
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+img {
+  width: 80%;
+}
+
+h2 {
+  font-size: 1.2rem;
+  color: var(--primary-gray);
+  margin-bottom: 0.8rem;
+}
+
+p {
+  color: var(--primary-gray);
+  margin-bottom: 1rem;
+}
+
+.btn {
+  padding-inline: 1rem;
+}
+
+.btn-2 {
+  height: 2rem;
+  border: 1px solid var(--primary-blue);
+  border-radius: 6px;
+  background-color: transparent;
+  color: var(--primary-blue);
+  font-weight: 600;
+  padding-inline: 1rem;
+}
+
+.btn-2:hover {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: var(--primary-blue);
+  transition: 0.3s;
 }

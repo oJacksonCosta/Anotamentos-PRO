@@ -1,0 +1,52 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  padding: 1rem;
+  background-color: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+}
+
+body > button {
+  background-color: transparent;
+  font-size: 24px;
+  color: var(--primary-blue);
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+}
+
+.container {
+  width: 90%;
+  height: 90%;
+  padding: 2rem;
+
+  display: flex;
+  gap: 5rem;
+}
+
+.left-container {
+  flex: 1;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.right-container {
+  flex: 2;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

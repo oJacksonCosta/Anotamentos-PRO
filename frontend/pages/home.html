@@ -49,13 +49,18 @@
             <option id="low-priority" value="baixa">Baixa</option>
           </select>
           <textarea
-            id="text"
+            id="note"
             name="text"
             placeholder="Escreva sua anotação ou tarefa aqui..."
             rows="15"
             required
           ></textarea>
-          <button type="submit" class="btn" style="grid-column: 1 / 4">
+          <button
+            id="btn-register-note"
+            type="submit"
+            class="btn"
+            style="grid-column: 1 / 4"
+          >
             <i class="bi bi-sticky-fill"></i> Registrar
           </button>
         </form>
@@ -79,118 +84,7 @@
             <button id="btn-search"><i class="bi bi-search"></i></button>
           </div>
         </div>
-        <div class="list">
-          <div class="card">
-            <button class="card-options">
-              <i class="bi bi-three-dots-vertical"></i>
-            </button>
-            <div class="green"></div>
-            <h2>Titulo da anotação</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Necessitatibus, ullam! A soluta modi eius ea distinctio libero
-              corporis illo, magnam nesciunt dolorum hic consequuntur quo omnis
-              sit, exercitationem id quasi, voluptatum labore. Repellendus
-              minima commodi, dicta.
-            </p>
-            <div class="card-footer">
-              <p class="date"><i class="bi bi-calendar-fill"></i> 05/12/2024</p>
-              <p class="label-type">Anotação</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <button class="card-options">
-              <i class="bi bi-three-dots-vertical"></i>
-            </button>
-            <div class="red"></div>
-            <h2>Titulo da anotação</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Necessitatibus.
-            </p>
-            <div class="card-footer">
-              <p class="date"><i class="bi bi-calendar-fill"></i> 05/12/2024</p>
-              <p class="label-type">Anotação</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <button class="card-options">
-              <i class="bi bi-three-dots-vertical"></i>
-            </button>
-            <div class="orange"></div>
-            <h2>Titulo da anotação</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Necessitatibus, ullam! A soluta modi eius ea distinctio libero
-              corporis illo, magnam nesciunt dolorum hic consequuntur quo omnis
-              sit, exercitationem id quasi, voluptatum labore. Repellendus
-              minima commodi, dicta.
-            </p>
-            <div class="card-footer">
-              <p class="date"><i class="bi bi-calendar-fill"></i> 05/12/2024</p>
-              <p class="label-type">Anotação</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <button class="card-options">
-              <i class="bi bi-three-dots-vertical"></i>
-            </button>
-            <div class="green"></div>
-            <h2>Titulo da anotação</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Necessitatibus, ullam! A soluta modi eius ea distinctio libero
-              corporis illo, magnam nesciunt dolorum hic consequuntur quo omnis
-              sit, exercitationem id quasi, voluptatum labore. Repellendus
-              minima commodi, dicta.
-            </p>
-            <div class="card-footer">
-              <p class="date"><i class="bi bi-calendar-fill"></i> 05/12/2024</p>
-              <p class="label-type">Anotação</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <button class="card-options">
-              <i class="bi bi-three-dots-vertical"></i>
-            </button>
-            <div class="red"></div>
-            <h2>Titulo da anotação</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Necessitatibus, ullam! A soluta modi eius ea distinctio libero
-              corporis illo, magnam nesciunt dolorum hic consequuntur quo omnis
-              sit, exercitationem id quasi, voluptatum labore. Repellendus
-              minima commodi, dicta.
-            </p>
-            <div class="card-footer">
-              <p class="date"><i class="bi bi-calendar-fill"></i> 05/12/2024</p>
-              <p class="label-type">Anotação</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <button class="card-options">
-              <i class="bi bi-three-dots-vertical"></i>
-            </button>
-            <div class="green"></div>
-            <h2>Titulo da anotação</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Necessitatibus, ullam! A soluta modi eius ea distinctio libero
-              corporis illo, magnam nesciunt dolorum hic consequuntur quo omnis
-              sit, exercitationem id quasi, voluptatum labore. Repellendus
-              minima commodi, dicta.
-            </p>
-            <div class="card-footer">
-              <p class="date"><i class="bi bi-calendar-fill"></i> 05/12/2024</p>
-              <p class="label-type">Anotação</p>
-            </div>
-          </div>
-        </div>
+        <div id="card-list" class="list"></div>
       </section>
     </section>
 

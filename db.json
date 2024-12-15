@@ -4,21 +4,26 @@
       "id": 1,
       "user": "usuario",
       "password": "123456"
-    },
-    {
-      "user": "alek",
-      "password": "12345678",
-      "id": 2
     }
   ],
-  "anotation": [
+  "anotations": [
     {
       "id": 1,
-      "user_id": 1,
-      "title": "titulo",
-      "note": "nota",
-      "type": "anotacao",
-      "priority": "media"
+      "userId": 1,
+      "title": "Título da anotação",
+      "note": "Testando anotação grande, para ver se não vai dar probelma com o json. Espero que não dê problema, pois se der, vou ter que mudar o json para um outro formato, que não seja json, para que não tenha problema com o json.",
+      "type": "tarefa",
+      "priority": "media",
+      "date": "2023-06-06"
+    },
+    {
+      "userId": "1",
+      "title": "dvdvdvdv",
+      "type": "tarefa",
+      "priority": "baixa",
+      "note": "dvdvdvdxcvvcv",
+      "date": "15/12/2024",
+      "id": 2
     }
   ]
 }

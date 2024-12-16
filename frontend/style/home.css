@@ -11,6 +11,26 @@ body {
   overflow: hidden;
 }
 
+.blur {
+  filter: blur(5px);
+  transition: 0.3s;
+}
+
+.show-overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  opacity: 0.5;
+  position: absolute;
+  z-index: 1;
+
+  transition: 0.3s;
+}
+
+.hide-overlay {
+  display: none;
+}
+
 body > button {
   background-color: transparent;
   font-size: 24px;
@@ -49,4 +69,45 @@ body > button {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.caption-container {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.caption {
+  margin-bottom: 0.2rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.color {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 6px;
+}
+
+.caption > p {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-gray);
+}
+
+.caption-red {
+  background-color: #cc0000;
+}
+
+.caption-orange {
+  background-color: #ff9100;
+}
+
+.caption-green {
+  background-color: #9bd400;
+}
+
+.caption-blue {
+  background-color: var(--primary-blue);
 }

@@ -2,6 +2,7 @@
 
 .list {
   width: 100%;
+  height: 100%;
   padding: 0.3rem 1rem 1rem 0.5rem;
 
   overflow-y: scroll;
@@ -39,6 +40,16 @@
   border-radius: 6px 0 0 6px;
 }
 
+.blue {
+  width: 0.7rem;
+  height: 100%;
+  background-color: var(--primary-blue);
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 6px 0 0 6px;
+}
+
 /*----------------------------------------*/
 
 .card {
@@ -52,11 +63,11 @@
   position: relative;
 }
 
-.card:hover {
+/* .card:hover {
   cursor: pointer;
   background-color: #f7f7f7;
   transition: 0.4s;
-}
+} */
 
 .card-options {
   background-color: transparent;
@@ -67,6 +78,62 @@
 
   position: absolute;
   right: 1rem;
+}
+
+.options-modal {
+  position: absolute;
+  right: 2.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 5px 10px var(--secondary-gray);
+  border-radius: 6px;
+  padding: 0.5rem;
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.options-modal-hidden {
+  display: none;
+  animation: fadeOut 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.modal-btn {
+  background-color: transparent;
+  color: var(--primary-gray);
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.modal-btn:hover {
+  color: var(--primary-blue);
+  background-color: rgb(245, 245, 245);
+  transition: 0.4s;
 }
 
 .card > h2 {
@@ -98,4 +165,69 @@
   border: 1px solid var(--secondary-gray);
   border-radius: 6px;
   padding: 0.3rem 0.5rem;
+}
+
+.modal-confirm {
+  width: 15%;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 5px 10px #535353;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
+  position: absolute;
+  z-index: 10;
+
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-confirm-hidden {
+  display: none;
+}
+
+.modal-confirm > p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-gray);
+  margin-bottom: 0.5rem;
+}
+
+.modal-confirm > div {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+}
+
+#btn-yes,
+#btn-no {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+#btn-yes {
+  background-color: #9bd400;
+}
+
+#btn-yes:hover {
+  background-color: #87b800;
+  transition: 0.4s;
+}
+
+#btn-no {
+  background-color: #cc0000;
+}
+
+#btn-no:hover {
+  background-color: #a30000;
+  transition: 0.4s;
 }

@@ -12,17 +12,29 @@
     <link rel="stylesheet" href="../style/title.css" />
     <link rel="stylesheet" href="../style/input.css" />
     <link rel="stylesheet" href="../style/button.css" />
+    <link rel="stylesheet" href="../style/alert.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
+    <link rel="icon" href="../img/favicon-32x32.png" type="image/x-icon" />
   </head>
-  <body>
+  <body id="body">
     <button>
       <i id="btn-exit-icon" class="bi bi-x-square"></i>
     </button>
 
-    <section class="container">
+    <div id="modal-confirm" class="modal-confirm-hidden">
+      <p>Deseja realmente excluir?</p>
+      <div>
+        <button id="btn-yes">Sim</button>
+        <button id="btn-no">Não</button>
+      </div>
+    </div>
+
+    <div id="overlay" class="hide-overlay"></div>
+
+    <section id="container" class="container">
       <section class="left-container">
         <h1 class="title">
           <i class="bi bi-journal-bookmark-fill"></i> Anotamentos
@@ -37,13 +49,13 @@
             required
           />
           <select name="type" id="type">
-            <option disabled selected>Tipo</option>
+            <option disabled selected value="tipo">Tipo</option>
             <option value="anotacao">Anotação</option>
             <option value="tarefa">Tarefa</option>
             <option value="ideia">Ideia</option>
           </select>
           <select name="priority" id="priority">
-            <option disabled selected>Prioridade</option>
+            <option disabled selected value="prioridade">Prioridade</option>
             <option id="righ-priority" value="alta">Alta</option>
             <option id="medium-priority" value="media">Média</option>
             <option id="low-priority" value="baixa">Baixa</option>
@@ -52,7 +64,7 @@
             id="note"
             name="text"
             placeholder="Escreva sua anotação ou tarefa aqui..."
-            rows="15"
+            rows="12"
             required
           ></textarea>
           <button
@@ -64,6 +76,28 @@
             <i class="bi bi-sticky-fill"></i> Registrar
           </button>
         </form>
+
+        <div class="caption-container">
+          <div class="caption">
+            <div class="color caption-red"></div>
+            <p>Tarefa com prioridade alta</p>
+          </div>
+
+          <div class="caption">
+            <div class="color caption-orange"></div>
+            <p>Tarefa com prioridade media</p>
+          </div>
+
+          <div class="caption">
+            <div class="color caption-green"></div>
+            <p>Tarefa com prioridade baixa</p>
+          </div>
+
+          <div class="caption">
+            <div class="color caption-blue"></div>
+            <p>Anotação ou ideia</p>
+          </div>
+        </div>
       </section>
       <section class="right-container">
         <div class="filter">
@@ -74,10 +108,11 @@
             <option value="ideia">Ideia</option>
           </select>
           <select name="priority" id="filter-priority" required>
-            <option disabled selected>Prioridade</option>
+            <option disabled selected value="prioridade">Prioridade</option>
             <option id="righ-priority" value="alta">Alta</option>
             <option id="medium-priority" value="media">Média</option>
             <option id="low-priority" value="baixa">Baixa</option>
+            <option id="all" value="geral">Geral</option>
           </select>
           <div id="filter-search">
             <input type="search" class="input" id="search" />

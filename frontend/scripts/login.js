@@ -1,16 +1,4 @@
-//Mostra uma mensagem na tela
-function showMsg(msg, tag) {
-  const body = document.getElementById("body");
-  const message = document.createElement("p");
-
-  message.textContent = msg;
-  message.classList.add(tag);
-  body.appendChild(message);
-
-  setTimeout(() => {
-    body.removeChild(message);
-  }, 2000);
-}
+import showMsg from "../scripts/alert.js";
 
 async function login(username, password) {
   try {

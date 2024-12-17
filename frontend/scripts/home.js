@@ -128,22 +128,22 @@ const createCardElement = (item) => {
 };
 
 // Listar cartões
-const listCards = (notes) => {
+function listCards(notes) {
   const cardList = document.getElementById("card-list");
   cardList.innerHTML = "";
 
   notes.forEach((item) => {
     cardList.appendChild(createCardElement(item));
   });
-};
+}
 
 // Limpa lista de cartões
-const clearList = () => {
-  document.getElementById("card-list").innerHTML = "";
-};
+function clearList() {
+  document.getElementById("card-list").replaceChildren();
+}
 
 // Listar todos os cartões
-const listAllCards = async () => {
+async function listAllCards() {
   clearList();
   try {
     const userId = localStorage.getItem("userId");
@@ -156,7 +156,7 @@ const listAllCards = async () => {
   } catch (err) {
     console.error("Erro ao carregar cartões:", err);
   }
-};
+}
 
 document.addEventListener("DOMContentLoaded", listAllCards);
 
@@ -246,6 +246,7 @@ async function fetchNotes() {
     );
     const data = await response.json();
     notesData = data; // Armazena as anotações no estado global
+    console.log(notesData);
   } catch (err) {
     console.error("Erro ao buscar as anotações: ", err);
   }
@@ -276,7 +277,7 @@ async function filter() {
       );
     }
 
-    clearlist();
+    clearList();
     listCards(filteredNotes);
   } catch (err) {
     console.error("Erro no filtro: ", err);

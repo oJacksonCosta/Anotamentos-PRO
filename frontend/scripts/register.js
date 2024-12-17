@@ -7,7 +7,7 @@ async function registerUser(user, password) {
 
     const userData = { user, password };
 
-    const response = await fetch("https://anotamentos-pro-2.vercel.app/users", {
+    const response = await fetch("https://anotamentos-pro.onrender.com/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

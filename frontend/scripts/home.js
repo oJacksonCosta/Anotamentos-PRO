@@ -1,224 +1,208 @@
 import showMsg from "../scripts/alert.js";
 
-//Verifica se o usuário está logado
+// Função para manipular classes de elementos
+const toggleClass = (element, addClass, removeClass) => {
+  element.classList.add(addClass);
+  element.classList.remove(removeClass);
+};
+
+// Redireciona se o usuário não estiver logado
 if (!localStorage.getItem("loggedIn")) {
   window.location.href = "login.html";
-} else {
-  // console.log("Usuário logado!");
 }
 
-//Lista os cartões
-function listCards(notes) {
+// Funções de Modal
+const toggleModal = (modal, overlay, action) => {
+  if (action === "open") {
+    // Mostrar o modal e overlay, aplicar o desfoque no container
+    modal.classList.remove("modal-confirm-hidden");
+    modal.classList.add("modal-confirm");
+    overlay.classList.remove("hide-overlay");
+    overlay.classList.add("show-overlay");
+    document.getElementById("container").classList.add("blur");
+  } else if (action === "close") {
+    // Esconder o modal e overlay, remover o desfoque no container
+    modal.classList.remove("modal-confirm");
+    modal.classList.add("modal-confirm-hidden");
+    overlay.classList.remove("show-overlay");
+    overlay.classList.add("hide-overlay");
+    document.getElementById("container").classList.remove("blur");
+  }
+};
+// Deletar registro por ID
+const deleteRecord = async (id) => {
+  try {
+    const response = await fetch(
+      `https://anotamentos-pro.onrender.com/anotations/${id}`,
+      { method: "DELETE" }
+    );
+    if (!response.ok) throw new Error("Falha ao deletar");
+    showMsg(`O registro com ID ${id} foi deletado com sucesso!`, "sucess-msg");
+  } catch (error) {
+    console.error("Erro na requisição:", error);
+    showMsg(`Erro ao deletar o registro com ID ${id}.`, "error-msg");
+  }
+};
+
+// Centraliza a criação de elementos para as notas
+const createCardElement = (item) => {
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  const btnOptions = document.createElement("button");
+  btnOptions.classList.add("card-options");
+  btnOptions.innerHTML = '<i class="bi bi-three-dots-vertical"></i>';
+  btnOptions.addEventListener("click", () => {
+    optionsModal.classList.toggle("options-modal-hidden");
+    optionsModal.classList.toggle("options-modal");
+  });
+
+  const optionsModal = document.createElement("div");
+  optionsModal.classList.add("options-modal-hidden");
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("modal-btn");
+  deleteBtn.innerHTML = '<i class="bi bi-trash-fill"></i> Excluir';
+  deleteBtn.addEventListener("click", () => {
+    const modalConfirm = document.getElementById("modal-confirm");
+    const overlay = document.getElementById("overlay");
+    toggleModal(modalConfirm, overlay, "open");
+
+    document.getElementById("btn-yes").onclick = async () => {
+      await deleteRecord(item.id);
+      toggleModal(modalConfirm, overlay, "close");
+      listAllCards();
+    };
+
+    document.getElementById("btn-no").onclick = () =>
+      toggleModal(modalConfirm, overlay, "close");
+  });
+
+  const editBtn = document.createElement("button");
+  editBtn.classList.add("modal-btn");
+  editBtn.innerHTML = '<i class="bi bi-pencil-square"></i> Editar';
+  editBtn.disabled = true;
+
+  // Adicionando a lógica de cores com o switch
+  const colorTag = document.createElement("div");
+  switch (item.priority) {
+    case "alta":
+      colorTag.classList.add("red");
+      break;
+    case "media":
+      colorTag.classList.add("orange");
+      break;
+    case "baixa":
+      colorTag.classList.add("green");
+      break;
+    case "prioridade":
+      colorTag.classList.add("blue");
+      break;
+    default:
+      colorTag.classList.add("gray");
+  }
+
+  const title = document.createElement("h2");
+  title.textContent = item.title;
+
+  const note = document.createElement("p");
+  note.textContent = item.note;
+
+  const cardFooter = document.createElement("div");
+  cardFooter.classList.add("card-footer");
+
+  const date = document.createElement("p");
+  date.classList.add("date");
+  date.innerHTML = `<i class="bi bi-calendar-fill"></i> ${item.date}`;
+
+  const labelType = document.createElement("p");
+  labelType.classList.add("label-type");
+  labelType.textContent =
+    item.type.charAt(0).toUpperCase() + item.type.slice(1);
+
+  optionsModal.append(deleteBtn, editBtn);
+  cardFooter.append(date, labelType);
+  card.append(btnOptions, optionsModal, colorTag, title, note, cardFooter);
+
+  return card;
+};
+
+// Listar cartões
+const listCards = (notes) => {
   const cardList = document.getElementById("card-list");
+  cardList.innerHTML = "";
 
   notes.forEach((item) => {
-    const card = document.createElement("div");
-    card.classList.add("card");
-
-    const btnOptions = document.createElement("button");
-    btnOptions.classList.add("card-options");
-    btnOptions.id = "options-" + item.id;
-    btnOptions.innerHTML = '<i class="bi bi-three-dots-vertical"></i>';
-    btnOptions.setAttribute("onchange", "showModal()");
-
-    //Abre e fecha o modal
-    let modalIsClose = true;
-    btnOptions.addEventListener("click", () => {
-      const options = document.getElementById("options-" + item.id);
-      const modal = document.getElementById("options-modal-" + item.id);
-
-      if (modalIsClose) {
-        modal.classList.remove("options-modal-hidden");
-        modal.classList.add("options-modal");
-        options.innerHTML = "";
-        options.innerHTML = '<i class="bi bi-x-square"></i>';
-        modalIsClose = false;
-      } else {
-        modal.classList.remove("options-modal");
-        modal.classList.add("options-modal-hidden");
-        options.innerHTML = "";
-        options.innerHTML = '<i class="bi bi-three-dots-vertical"></i>';
-        modalIsClose = true;
-      }
-    });
-
-    const optionsModal = document.createElement("div");
-    optionsModal.classList.add("options-modal-hidden");
-    optionsModal.id = "options-modal-" + item.id;
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.classList.add("modal-btn");
-    deleteBtn.id = "btn-delete-" + item.id;
-    deleteBtn.innerHTML = '<i class="bi bi-trash-fill"></i> Excluir';
-
-    deleteBtn.addEventListener("click", () => {
-      const options = document.getElementById("options-" + item.id);
-      const modal = document.getElementById("options-modal-" + item.id);
-
-      //Abre o modal de confirmação
-      const modalConfirm = document.getElementById("modal-confirm");
-      setTimeout(() => {
-        modalConfirm.classList.remove("modal-confirm-hidden");
-        modalConfirm.classList.add("modal-confirm");
-      }, 200);
-
-      document.getElementById("container").classList.add("blur");
-
-      const overlay = document.getElementById("overlay");
-
-      overlay.classList.remove("hide-overlay");
-      overlay.classList.add("show-overlay");
-
-      //Fecha o modal de opções
-      modal.classList.remove("options-modal");
-      modal.classList.add("options-modal-hidden");
-      options.innerHTML = "";
-      options.innerHTML = '<i class="bi bi-three-dots-vertical"></i>';
-      modalIsClose = true;
-
-      document.getElementById("btn-yes").addEventListener("click", async () => {
-        //Deletar card
-        try {
-          const response = await fetch(
-            `http://localhost:3000/anotations/${item.id}`,
-            {
-              method: "DELETE",
-            }
-          );
-
-          if (response.ok) {
-            console.log(`Registro com ID ${item.id} foi deletado com sucesso!`);
-            // Atualizar a lista ou UI, se necessário
-          } else {
-            console.error(
-              `Erro ao deletar o registro com ID ${item.id}:`,
-              response.status
-            );
-          }
-        } catch (error) {
-          console.error("Erro na requisição:", error);
-        }
-      });
-
-      //Fecha o modal de confirmação
-      document.getElementById("btn-no").addEventListener("click", () => {
-        modalConfirm.classList.remove("modal-confirm");
-        modalConfirm.classList.add("modal-confirm-hidden");
-
-        document.getElementById("container").classList.remove("blur");
-
-        overlay.classList.remove("show-overlay");
-        overlay.classList.add("hide-overlay");
-      });
-    });
-
-    const editBtn = document.createElement("button");
-    editBtn.classList.add("modal-btn");
-    editBtn.id = "btn-edit-" + item.id;
-    editBtn.innerHTML = '<i class="bi bi-pencil-square"></i> Editar';
-    editBtn.setAttribute("disabled", true);
-
-    const colorTag = document.createElement("div");
-    const color = item.priority;
-    switch (color) {
-      case "alta":
-        colorTag.classList.add("red");
-        break;
-      case "media":
-        colorTag.classList.add("orange");
-        break;
-      case "baixa":
-        colorTag.classList.add("green");
-        break;
-      case "prioridade":
-        colorTag.classList.add("blue");
-        break;
-    }
-
-    const title = document.createElement("h2");
-    title.textContent = item.title;
-
-    const note = document.createElement("p");
-    note.textContent = item.note;
-
-    const cardFooter = document.createElement("div");
-    cardFooter.classList.add("card-footer");
-
-    const date = document.createElement("p");
-    date.classList.add("date");
-    date.innerHTML = '<i class="bi bi-calendar-fill"></i> ' + item.date;
-
-    const labelType = document.createElement("p");
-    labelType.classList.add("label-type");
-    const type = item.type;
-    switch (type) {
-      case "anotacao":
-        labelType.textContent = "Anotação";
-        break;
-      case "tarefa":
-        labelType.textContent = "Tarefa";
-        break;
-      case "ideia":
-        labelType.textContent = "Ideia";
-        break;
-    }
-
-    optionsModal.append(deleteBtn, editBtn);
-    cardFooter.append(date, labelType);
-    card.append(btnOptions, optionsModal, colorTag, title, note, cardFooter);
-    cardList.append(card);
+    cardList.appendChild(createCardElement(item));
   });
-}
+};
 
-function clearlist() {
-  const cardList = document.getElementById("card-list");
-  cardList.replaceChildren();
-}
+// Limpa lista de cartões
+const clearList = () => {
+  document.getElementById("card-list").innerHTML = "";
+};
 
-//Cadastra uma nova nota
-document
-  .getElementById("btn-register-note")
-  .addEventListener("click", async (e) => {
-    e.preventDefault();
+// Listar todos os cartões
+const listAllCards = async () => {
+  clearList();
+  try {
     const userId = localStorage.getItem("userId");
-    const title = document.getElementById("title").value;
-    const type = document.getElementById("type").value;
-    const priority = document.getElementById("priority").value;
-    const note = document.getElementById("note").value;
+    const response = await fetch(
+      "https://anotamentos-pro.onrender.com/anotations"
+    );
+    const data = await response.json();
+    const userNotes = data.filter((note) => note.userId == userId);
+    listCards(userNotes);
+  } catch (err) {
+    console.error("Erro ao carregar cartões:", err);
+  }
+};
 
-    //Obtem a data atual e formata
-    const atualDate = new Date();
-    const formatador = new Intl.DateTimeFormat("pt-BR", { dateStyle: "short" });
-    const date = formatador.format(atualDate);
+document.addEventListener("DOMContentLoaded", listAllCards);
 
-    //Verifica se os campos estão preenchidos
-    if (!title || !type || type === "tipo" || !priority || !note) {
-      showMsg("Preencha todos os campos!", "error-msg");
-      return;
-    }
+// Registrar nova nota
+const registerNote = async () => {
+  const userId = localStorage.getItem("userId");
+  const title = document.getElementById("title").value;
+  const type = document.getElementById("type").value;
+  const priority = document.getElementById("priority").value;
+  const note = document.getElementById("note").value;
+  const date = new Intl.DateTimeFormat("pt-BR", { dateStyle: "short" }).format(
+    new Date()
+  );
 
-    const noteData = { userId, title, type, priority, note, date };
+  if (!title || !type || type === "tipo" || !priority || !note) {
+    showMsg("Preencha todos os campos!", "error-msg");
+    return;
+  }
 
-    try {
-      const response = await fetch("http://localhost:3000/anotations", {
+  try {
+    const response = await fetch(
+      "https://anotamentos-pro.onrender.com/anotations",
+      {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(noteData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro ao cadastrar");
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, title, type, priority, note, date }),
       }
+    );
 
-      console.log("nota registrada");
-    } catch (err) {
-      console.log(err);
-    }
-  });
+    if (!response.ok) throw new Error("Erro ao cadastrar nota");
 
-//Verifica os selects e desabilita o select de prioridade caso o tipo seja anotação ou ideia
+    clearList();
+    listAllCards();
+    document.getElementById("form").reset();
+    document.getElementById("title").focus();
+  } catch (err) {
+    console.error("Erro ao registrar nota:", err);
+  }
+};
+
+document.getElementById("btn-register-note").addEventListener("click", (e) => {
+  e.preventDefault();
+  registerNote();
+});
+
+// Verifica os selects e desabilita o select de prioridade caso o tipo seja anotação, ideia ou geral
 function checkSelects(inputType, inputPriority, defaultValue) {
   const type = document.getElementById(inputType).value;
   const priority = document.getElementById(inputPriority);
@@ -231,16 +215,18 @@ function checkSelects(inputType, inputPriority, defaultValue) {
     priority.value = defaultValue;
   }
 }
-//Habilita a prioridade apenas se for uma tarefa
+
+// Habilita a prioridade apenas se for uma tarefa ao carregar a página
 document.addEventListener("DOMContentLoaded", () => {
   const type = document.getElementById("filter-type");
   const priority = document.getElementById("filter-priority");
 
-  if (type !== "tarefa") {
+  if (type && type.value !== "tarefa") {
     priority.setAttribute("disabled", true);
   }
 });
 
+// Adiciona listeners aos selects para habilitar/desabilitar prioridade dinamicamente
 document.getElementById("type").addEventListener("change", () => {
   checkSelects("type", "priority", "alta");
 });
@@ -249,104 +235,97 @@ document.getElementById("filter-type").addEventListener("change", () => {
   checkSelects("filter-type", "filter-priority", "geral");
 });
 
-//Lista todos os cartões ao carregar a página
-document.addEventListener("DOMContentLoaded", async () => {
+//Filtros
+let notesData = []; // Armazenar as anotações no estado global
+
+// Função para buscar as anotações uma vez e armazená-las no estado global
+async function fetchNotes() {
   try {
-    const userId = localStorage.getItem("userId");
-    // console.log(userId);
-
-    const response = await fetch("http://localhost:3000/anotations");
+    const response = await fetch(
+      "https://anotamentos-pro.onrender.com/anotations"
+    );
     const data = await response.json();
-
-    // Filtra as anotações com o userId correspondente
-    const userNotes = data.filter((note) => note.userId == userId);
-
-    console.log(userNotes);
-    listCards(userNotes);
+    notesData = data; // Armazena as anotações no estado global
   } catch (err) {
-    console.log("Erro: ", err);
+    console.error("Erro ao buscar as anotações: ", err);
   }
-});
+}
 
-//Filtro
+// Filtra as anotações conforme o tipo e prioridade
 async function filter() {
   try {
     const userId = localStorage.getItem("userId");
     const type = document.getElementById("filter-type").value;
     const priority = document.getElementById("filter-priority").value;
-    // console.log(type, priority);
 
-    const response = await fetch("http://localhost:3000/anotations");
-    const data = await response.json();
+    // Se os dados ainda não foram carregados, faz a requisição
+    if (notesData.length === 0) {
+      await fetchNotes();
+    }
 
     // Filtra as anotações com o userId, tipo e prioridade
-    let userNotes = [];
+    let filteredNotes = notesData.filter((note) => note.userId == userId);
 
-    if (priority === "geral") {
-      userNotes = data.filter(
-        (note) => note.userId == userId && note.type === type
-      );
-    } else {
-      userNotes = data.filter(
-        (note) =>
-          note.userId == userId &&
-          note.type === type &&
-          note.priority === priority
+    if (type !== "tipo") {
+      filteredNotes = filteredNotes.filter((note) => note.type === type);
+    }
+
+    if (priority !== "geral") {
+      filteredNotes = filteredNotes.filter(
+        (note) => note.priority === priority
       );
     }
 
-    // console.log(userNotes);
     clearlist();
-    listCards(userNotes);
+    listCards(filteredNotes);
   } catch (err) {
-    console.log("Erro: ", err);
+    console.error("Erro no filtro: ", err);
   }
 }
 
-document.getElementById("filter-type").addEventListener("change", () => {
-  filter();
-});
-
-document.getElementById("filter-priority").addEventListener("change", () => {
-  filter();
-});
-
-//Search
+// Função de busca
 async function search() {
   try {
     const userId = localStorage.getItem("userId");
-    const search = document.getElementById("search").value.toLowerCase();
-    console.log(search, userId);
+    const searchTerm = document.getElementById("search").value.toLowerCase();
 
-    const response = await fetch("http://localhost:3000/anotations");
-    const data = await response.json();
-    console.log("Server: " + data);
+    // Se os dados ainda não foram carregados, faz a requisição
+    if (notesData.length === 0) {
+      await fetchNotes();
+    }
 
-    // Filtra as anotações com o userId, tipo e prioridade
-    const userNotes = data.filter((note) => note.userId);
+    // Filtra as anotações com o userId
+    const userNotes = notesData.filter((note) => note.userId == userId);
+
+    // Realiza a busca no título e na nota
     const notesSearch = userNotes.filter(
       (note) =>
-        note.title.toLowerCase().includes(search) ||
-        note.note.toLowerCase().includes(search)
+        note.title.toLowerCase().includes(searchTerm) ||
+        note.note.toLowerCase().includes(searchTerm)
     );
-    console.log(notesSearch);
 
-    // console.log(userNotes);
     clearlist();
     listCards(notesSearch);
   } catch (err) {
-    console.log("Erro: ", err);
+    console.error("Erro na busca: ", err);
   }
 }
 
-//Filtra pelo botão
-document.getElementById("btn-search").addEventListener("click", () => {
-  search();
-});
+// Adiciona o evento de filtro para o tipo
+document.getElementById("filter-type").addEventListener("change", filter);
 
-//Filtra pelo Enter
+// Adiciona o evento de filtro para a prioridade
+document.getElementById("filter-priority").addEventListener("change", filter);
+
+// Evento para o botão de busca
+document.getElementById("btn-search").addEventListener("click", search);
+
+// Evento para a tecla Enter no campo de busca
 document.getElementById("search").addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     search();
   }
 });
+
+// Chama a função para carregar as anotações assim que a página for carregada
+document.addEventListener("DOMContentLoaded", fetchNotes);

@@ -2,7 +2,7 @@ import showMsg from "../scripts/alert.js";
 
 async function login(username, password) {
   try {
-    const response = await fetch("http://localhost:3000/users"); // Espera pela resposta do fetch
+    const response = await fetch("https://anotamentos-pro.onrender.com/users"); // Espera pela resposta do fetch
     const users = await response.json(); // Espera pela conversão do JSON
 
     const user = users.find(

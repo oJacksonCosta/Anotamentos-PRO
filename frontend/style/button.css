@@ -12,3 +12,7 @@
   background-color: var(--secondary-blue);
   transition: 0.3s;
 }
+
+.btn:focus {
+  outline: 2px solid var(--primary-blue);
+}

@@ -22,7 +22,7 @@
   position: absolute;
   top: 2rem;
 
-  animation: showErrorMsg 2s ease-in-out 1;
+  animation: showErrorMsg 3s ease-in-out 1;
   animation-fill-mode: forwards;
 }
 

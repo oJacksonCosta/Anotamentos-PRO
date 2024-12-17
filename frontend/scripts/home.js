@@ -214,6 +214,10 @@ function checkSelects(inputType, inputPriority, defaultValue) {
     priority.removeAttribute("disabled");
     priority.value = defaultValue;
   }
+
+  if (type === "tipo") {
+    priority.value = "prioridade";
+  }
 }
 
 // Habilita a prioridade apenas se for uma tarefa ao carregar a página
@@ -305,7 +309,7 @@ async function search() {
         note.note.toLowerCase().includes(searchTerm)
     );
 
-    clearlist();
+    clearList();
     listCards(notesSearch);
   } catch (err) {
     console.error("Erro na busca: ", err);

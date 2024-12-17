@@ -169,6 +169,7 @@
 
 .modal-confirm {
   width: 15%;
+  min-width: 15rem;
   background-color: #ffffff;
   padding: 1rem;
   border-radius: 6px;

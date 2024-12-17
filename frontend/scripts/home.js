@@ -106,7 +106,8 @@ const createCardElement = (item) => {
   title.textContent = item.title;
 
   const note = document.createElement("p");
-  note.textContent = item.note;
+  const formatedText = item.note.replace(/\n/g, "<br>");
+  note.innerHTML = formatedText;
 
   const cardFooter = document.createElement("div");
   cardFooter.classList.add("card-footer");
